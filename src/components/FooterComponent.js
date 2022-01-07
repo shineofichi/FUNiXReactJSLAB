@@ -16,9 +16,9 @@ function Footer(props) {
                     </ul>
                 </div>
                 <div className="col-7 col-sm-5">
-                    <h5>Our Address</h5>
+                    <h5>My Address</h5>
                     <address>
-		              Leopalce<br />
+		              Leopalace<br />
 		              Shiga, Hikone<br />
 		              JAPAN<br />
 		              <i className="fa fa-phone fa-lg"></i>: +84386960463<br />
