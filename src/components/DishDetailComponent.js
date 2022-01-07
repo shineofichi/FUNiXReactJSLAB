@@ -47,8 +47,8 @@ import { Card, CardBody, CardImg, CardText, CardTitle } from "reactstrap";
 //         )
 //     }
 // }
-function RenderComment({dish}){
-    const comment = dish.comments.map((cmt) => {
+function RenderComment({comments}){
+    const comment = comments.map((cmt) => {
             return(
                 <div key = {cmt.id}>
                     <p>{cmt.comment}</p>
