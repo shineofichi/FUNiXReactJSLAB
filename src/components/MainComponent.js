@@ -5,6 +5,7 @@ import Contact from './ContactComponent';
 import Footer from './FooterComponent';
 import Home from './HomeComponent';
 import DishDetail from './DishDetailComponent';
+import About from './AboutComponent';
 import {Route, Routes, Navigate, useParams} from 'react-router-dom';
 import {DISHES} from "../shared/dishes";
 import {COMMENTS} from "../shared/comments";
@@ -47,6 +48,7 @@ class Main extends Component {
         <Routes>
           <Route path="/home" element={<Homepage/>}/>
           <Route path="/contactme" element = {<Contact/>}/>
+          <Route path="/aboutme" element = {<About leaders={this.state.leaders}/>}/>
           <Route path='/menu' element={<Menu dishes = {this.state.dishes}/> } />
           <Route path="/menu/:dishId" element={<DishWithId/>}/>
           <Route path="*" element = {<Navigate to="/home"/>}/>
