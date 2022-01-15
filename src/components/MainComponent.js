@@ -1,62 +1,72 @@
-import React, { Component } from 'react';
-import Header from './HeaderComponent';
-import Menu from './MenuComponent';
-import Contact from './ContactComponent';
-import Footer from './FooterComponent';
-import Home from './HomeComponent';
-import DishDetail from './DishDetailComponent';
-import About from './AboutComponent';
-import {Route, Routes, Navigate, useParams} from 'react-router-dom';
-import {DISHES} from "../shared/dishes";
-import {COMMENTS} from "../shared/comments";
-import {PROMOTIONS} from "../shared/promotions";
-import {LEADERS} from "../shared/leaders";
+import React, { Component } from "react";
+import Header from "./HeaderComponent";
+import Menu from "./MenuComponent";
+import Contact from "./ContactComponent";
+import Footer from "./FooterComponent";
+import Home from "./HomeComponent";
+import DishDetail from "./DishDetailComponent";
+import About from "./AboutComponent";
+import { Route, Routes, Navigate, useParams } from "react-router-dom";
+import { connect } from "react-redux";
+
+const mapStatetoProps = (state) => {
+  return {
+    dishes: state.dishes,
+    comments: state.comments,
+    leaders: state.leaders,
+    promotions: state.promotions,
+  };
+};
 
 class Main extends Component {
-
-  constructor(prop){
-    super(prop);
-    this.state = {
-      dishes: DISHES,
-      comments: COMMENTS,
-      leaders: LEADERS,
-      promotions: PROMOTIONS
-    }
+  // eslint-disable-next-line no-useless-constructor
+  constructor(props) {
+    super(props);
   }
-  
   render() {
-    const Homepage = () =>{
+    const Homepage = () => {
+      console.log("dishes", this.props.dishes);
       return (
-        <Home 
-          dish={this.state.dishes.filter((dish) => dish.featured)[0]}
-          promotion={this.state.promotions.filter((promo) => promo.featured)[0]}
-          leader={this.state.leaders.filter((leader) => leader.featured)[0]}
+        <Home
+          dish={this.props.dishes.filter((dish) => dish.featured)[0]}
+          promotion={this.props.promotions.filter((promo) => promo.featured)[0]}
+          leader={this.props.leaders.filter((leader) => leader.featured)[0]}
         />
       );
-    }
-    const DishWithId=()=>{
+    };
+    const DishWithId = () => {
       let params = useParams();
-      return(
-        <DishDetail dish={this.state.dishes.filter((dish)=>dish.id === parseInt(params.dishId,10))[0]}
-          comments={this.state.comments.filter((cmt)=> cmt.dishId === parseInt(params.dishId,10))}
+      return (
+        <DishDetail
+          dish={
+            this.props.dishes.filter(
+              (dish) => dish.id === parseInt(params.dishId, 10)
+            )[0]
+          }
+          comments={this.props.comments.filter(
+            (cmt) => cmt.dishId === parseInt(params.dishId, 10)
+          )}
         />
-      )
-    }
+      );
+    };
     return (
       <div>
-        <Header/>
+        <Header />
         <Routes>
-          <Route path="/home" element={<Homepage/>}/>
-          <Route path="/contactme" element = {<Contact/>}/>
-          <Route path="/aboutme" element = {<About leaders={this.state.leaders}/>}/>
-          <Route path='/menu' element={<Menu dishes = {this.state.dishes}/> } />
-          <Route path="/menu/:dishId" element={<DishWithId/>}/>
-          <Route path="*" element = {<Navigate to="/home"/>}/>
+          <Route path="/home" element={<Homepage />} />
+          <Route path="/contactme" element={<Contact />} />
+          <Route
+            path="/aboutme"
+            element={<About leaders={this.props.leaders} />}
+          />
+          <Route path="/menu" element={<Menu dishes={this.props.dishes} />} />
+          <Route path="/menu/:dishId" element={<DishWithId />} />
+          <Route path="*" element={<Navigate to="/home" />} />
         </Routes>
-        <Footer/>
+        <Footer />
       </div>
     );
   }
 }
 
-export default Main;
+export default connect(mapStatetoProps)(Main);
