@@ -14,7 +14,8 @@ const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
 const minLength = (len) => (val) => val && val.length >= len;
 const validEmail = (val) =>
-  /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2-4}$/i.test(val);
+  /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
+
 const isNumber = (val) => !isNaN(Number(val));
 
 class Contact extends Component {
@@ -28,19 +29,12 @@ class Contact extends Component {
       contactType: "Telephone",
       agree: false,
       message: "",
-      touched: {
-        firstname: false,
-        lastname: false,
-        tel: false,
-        email: false,
-      },
     };
     this.onSubmitButton = this.onSubmitButton.bind(this);
   }
 
-  onSubmitButton(event) {
-    console.log(this.state);
-    event.preventDefault();
+  onSubmitButton(values) {
+    console.log(JSON.stringify(values));
   }
 
   render() {
@@ -110,7 +104,7 @@ class Contact extends Component {
           <h3>Send us your feedback</h3>
         </div>
         <div>
-          <LocalForm onSubmit={this.onSubmitButton}>
+          <LocalForm onSubmit={(values) => this.onSubmitButton(values)}>
             <Row className="form-group">
               <Label htmlFor="firstname" md={2}>
                 First Name
@@ -118,9 +112,9 @@ class Contact extends Component {
               <Col md={10}>
                 <Control.text
                   model=".firstname"
-                  placeholder="Enter your first name"
                   id="firstname"
                   name="firstname"
+                  placeholder="First Name"
                   className="form-control"
                   validators={{
                     required,
@@ -133,8 +127,8 @@ class Contact extends Component {
                   model=".firstname"
                   show="touched"
                   messages={{
-                    required: "Required ",
-                    minLength: "Must be greater than 2 character",
+                    required: "Required",
+                    minLength: "Must be greater than 2 characters",
                     maxLength: "Must be 15 characters or less",
                   }}
                 />
@@ -147,9 +141,9 @@ class Contact extends Component {
               <Col md={10}>
                 <Control.text
                   model=".lastname"
-                  placeholder="Enter your last name"
                   id="lastname"
                   name="lastname"
+                  placeholder="Last Name"
                   className="form-control"
                   validators={{
                     required,
@@ -162,8 +156,8 @@ class Contact extends Component {
                   model=".lastname"
                   show="touched"
                   messages={{
-                    required: "Required ",
-                    minLength: "Must be greater than 2 character",
+                    required: "Required",
+                    minLength: "Must be greater than 2 characters",
                     maxLength: "Must be 15 characters or less",
                   }}
                 />
@@ -171,14 +165,14 @@ class Contact extends Component {
             </Row>
             <Row className="form-group">
               <Label htmlFor="tel" md={2}>
-                Tel. Number
+                Contact Tel.
               </Label>
               <Col md={10}>
                 <Control.text
                   model=".tel"
-                  placeholder="Enter your telephone number"
                   id="tel"
                   name="tel"
+                  placeholder="Tel. Number"
                   className="form-control"
                   validators={{
                     required,
@@ -189,13 +183,13 @@ class Contact extends Component {
                 />
                 <Errors
                   className="text-danger"
-                  model=".firstname"
+                  model=".tel"
                   show="touched"
                   messages={{
-                    required: "Required ",
-                    minLength: "Must be greater than 2 character ",
-                    maxLength: "Must be 15 characters or less ",
-                    isNumber: "Must be a number ",
+                    required: "Required",
+                    minLength: "Must be greater than 2 numbers",
+                    maxLength: "Must be 15 numbers or less",
+                    isNumber: "Must be a number",
                   }}
                 />
               </Col>
@@ -207,9 +201,9 @@ class Contact extends Component {
               <Col md={10}>
                 <Control.text
                   model=".email"
-                  placeholder="Enter your email"
                   id="email"
                   name="email"
+                  placeholder="Email"
                   className="form-control"
                   validators={{
                     required,
@@ -218,11 +212,11 @@ class Contact extends Component {
                 />
                 <Errors
                   className="text-danger"
-                  model=".firstname"
+                  model=".email"
                   show="touched"
                   messages={{
-                    required: "Required ",
-                    validEmail: "Invalid Email Address ",
+                    required: "Required",
+                    validEmail: "Invalid Email Address",
                   }}
                 />
               </Col>
