@@ -8,6 +8,7 @@ import DishDetail from "./DishDetailComponent";
 import About from "./AboutComponent";
 import { Route, Routes, Navigate, useParams } from "react-router-dom";
 import { connect } from "react-redux";
+import { addComment } from "../redux/ActionCreactors";
 
 const mapStatetoProps = (state) => {
   return {
@@ -17,6 +18,11 @@ const mapStatetoProps = (state) => {
     promotions: state.promotions,
   };
 };
+
+const mapDispatchtoProps = (dispatch) => ({
+  addComment: (dishId, rating, author, comment) =>
+    dispatch(addComment(dishId, rating, author, comment)),
+});
 
 class Main extends Component {
   // eslint-disable-next-line no-useless-constructor
@@ -46,6 +52,7 @@ class Main extends Component {
           comments={this.props.comments.filter(
             (cmt) => cmt.dishId === parseInt(params.dishId, 10)
           )}
+          addComment={this.props.addComment}
         />
       );
     };
@@ -69,4 +76,4 @@ class Main extends Component {
   }
 }
 
-export default connect(mapStatetoProps)(Main);
+export default connect(mapStatetoProps, mapDispatchtoProps)(Main);

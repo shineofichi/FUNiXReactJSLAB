@@ -11,7 +11,7 @@ import {
 import { Link } from "react-router-dom";
 import CommentForm from "./CommentFormComponent";
 
-function RenderComment({ comments }) {
+function RenderComment({ comments, addComment, dishId }) {
   const comment = comments.map((cmt) => {
     return (
       <div key={cmt.id}>
@@ -31,7 +31,7 @@ function RenderComment({ comments }) {
     <div className="col-12 col-md-5 m-1">
       <h4>Comments</h4>
       {comment}
-      <CommentForm />
+      <CommentForm dishId={dishId} addComment={addComment} />
     </div>
   );
 }
@@ -63,7 +63,11 @@ const DishDetail = (props) => {
       </div>
       <div className="row">
         <RenderDetail dish={props.dish} />
-        <RenderComment comments={props.comments} />
+        <RenderComment
+          comments={props.comments}
+          addComment={props.addComment}
+          dishId={props.dish.id}
+        />
       </div>
     </div>
   );

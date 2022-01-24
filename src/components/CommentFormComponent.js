@@ -35,7 +35,12 @@ class CommentForm extends Component {
   };
   onSubmitBtn(values) {
     this.onToggleModal;
-    console.log(values);
+    this.props.addComment(
+      this.props.dishId,
+      values.rating,
+      values.author,
+      values.comment
+    );
   }
   render() {
     return (
