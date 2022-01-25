@@ -31,7 +31,6 @@ class CommentForm extends Component {
     this.setState({
       isModalOpen: !this.state.isModalOpen,
     });
-    console.log(this.state.isModalOpen);
   };
   onSubmitBtn(values) {
     this.onToggleModal;
