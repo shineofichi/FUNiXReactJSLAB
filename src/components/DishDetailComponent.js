@@ -11,6 +11,7 @@ import {
 import { Link } from "react-router-dom";
 import CommentForm from "./CommentFormComponent";
 import { Loading } from "./LoadingComponent";
+import { baseUrl } from "../shared/baseUrl";
 
 function RenderComment({ comments, addComment, dishId }) {
   const comment = comments.map((cmt) => {
@@ -61,7 +62,7 @@ function RenderDetail(props) {
           <CardImg
             width="100%"
             object="true"
-            src={props.dish.image}
+            src={baseUrl + props.dish.image}
             alt={props.dish.name}
           />
           <CardBody>
