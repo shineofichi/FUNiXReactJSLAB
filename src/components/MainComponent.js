@@ -83,7 +83,7 @@ class Main extends Component {
           }
           isLoading={this.props.dishes.isLoading}
           errMess={this.props.dishes.errMess}
-          comments={this.props.comments.filter(
+          comments={this.props.comments.comments.filter(
             (cmt) => cmt.dishId === parseInt(params.dishId, 10)
           )}
           addComment={this.props.addComment}
