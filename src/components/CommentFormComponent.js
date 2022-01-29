@@ -34,10 +34,11 @@ class CommentForm extends Component {
   };
   onSubmitBtn(values) {
     this.onToggleModal;
-    this.props.addComment(
+    console.log(values);
+    this.props.postComment(
       this.props.dishId,
-      values.rating,
-      values.author,
+      values.rate,
+      values.username,
       values.comment
     );
   }
